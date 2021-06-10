@@ -56,5 +56,81 @@ if __name__ == '__main__':
      
     clear()
  
-    # The current turn
+    # De huidige beurt
     turn = 0
+
+    # De Gameloop
+    while turn < chances:
+
+        print("-----------------------------------------")
+        print("\t\tMenu")
+        print("-----------------------------------------")
+        print("Vul de code in met nummers.")
+        print("1 - ROOD, 2 - GROEN, 3 - GEEL, 4 - BLAUW, 5 - ZWART, 6 - ORANJE")
+        print("Bijvoorbeeld: ROOD GEEL ORANJE ZWART ---> 1 3 6 5")
+        print("-----------------------------------------")
+        print_mastermind_board(show_passcode, guess_codes, guess_flags)
+ 
+        # De input van de speler accepteren
+        try:    
+            code = list(map(int, input("Voer hier je code in = ").split()))
+        except ValueError:
+            clear()
+            print("\tFoute Code! probeer opnieuw!")
+            continue   
+ 
+        # Controleren of er 4 cijfers voor de kleuren zijn ingevoerd
+        if len(code) != 4:
+            clear()
+            print("\tFoute Code! probeer opnieuw!")
+            continue
+ 
+        # Controleren of de cijfers ingevoerd overeenkomen met de cijfers van de kleuren
+        flag = 0
+        for x in code:
+            if x > 6 or x < 1:
+                flag = 1
+ 
+        if flag == 1:           
+            clear()
+            print("\tFoute Code! probeer opnieuw!")
+            continue   
+ 
+        # Input opslaan
+        for i in range(4):
+            guess_codes[turn][i] = kleuren_map[code[i]]  
+ 
+        # Proces om hints te geven aanvankelijk van de spelers input 
+        dummy_passcode = [x for x in passcode]  
+ 
+        pos = 0
+ 
+        # Loop om de hints te geven aan de speler
+        for x in code:
+            if kleuren_map[x] in dummy_passcode:
+                if code.index(x) == passcode.index(kleuren_map[x]):
+                    guess_flags[turn][pos] = 'Z'
+                else:
+                    guess_flags[turn][pos] = 'W'
+                pos += 1
+                dummy_passcode.remove(kleuren_map[x])
+ 
+        random.shuffle(guess_flags[turn])               
+ 
+ 
+        # Controleren of je de code geraden hebt
+        if guess_codes[turn] == passcode:
+            clear()
+            print_mastermind_board(passcode, guess_codes, guess_flags)
+            print("Gefeliciteerd! Je hebt gewonnen!")
+            break
+ 
+        # Update beurt   
+        turn += 1          
+        clear()
+
+# Controleren of je verloren hebt  
+if turn == chances:
+    clear()
+    print_mastermind_board(passcode, guess_codes, guess_flags)
+    print("Je hebt verloren! Volgende keer beter!") 
