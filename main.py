@@ -28,3 +28,33 @@ def print_mastermind_board(passcode, guess_codes, guess_flags):
 
 		print()	
 	print("-----------------------------------------")
+
+# De algemene functie 
+if __name__ == '__main__':
+ 
+    # Lijst van kleuren
+    kleuren = ["ROOD", "GROEN", "GEEL", "BLAUW", "ZWART", "ORANJE"]
+ 
+    # In kaart brengen van kleuren naar nummers  
+    kleuren_map = {1:"ROOD", 2:"GROEN", 3:"GEEL", 4:"BLAUW", 5:"ZWART", 6:"ORANJE"}
+ 
+    # Random een code kiezen
+    random.shuffle(kleuren)
+    passcode = kleuren[:4]
+     
+    # Aantal kansen voor de speler
+    chances = 10
+ 
+    # De code die er voor de speler staat
+    show_passcode = ['UNK', 'UNK', 'UNK', 'UNK']
+ 
+    # De code die de speler elke beurt ingevuld heeft
+    guess_codes = [['-', '-', '-', '-'] for x in range(chances)]
+ 
+    # D hints gegeven per beurt
+    guess_flags = [['-', '-', '-', '-'] for x in range(chances)]
+     
+    clear()
+ 
+    # The current turn
+    turn = 0
