@@ -1,7 +1,6 @@
 import random
 import os
 
-
 def clear():
     os.system("clear")
 
@@ -30,7 +29,7 @@ def print_mastermind_board(passcode, guess_codes, guess_flags):
     print("-----------------------------------------")
 
 
-# De algemene functie
+# De algemene functie 
 if __name__ == '__main__':
 
     # Lijst van kleuren
@@ -133,6 +132,12 @@ if __name__ == '__main__':
             clear()
             print_mastermind_board(passcode, guess_codes, guess_flags)
             print("Gefeliciteerd! Je hebt gewonnen!")
+            again = input("wil je nog een keer spelen? (j/n)")
+            # als je wil, nog een keer spelen
+            if again == "j":
+              print_mastermind_board(passcode, guess_codes, guess_flags)
+            else:
+              print("THE END")
             break
 
         # Update beurt
@@ -144,3 +149,9 @@ if turn == chances:
     clear()
     print_mastermind_board(passcode, guess_codes, guess_flags)
     print("Je hebt verloren! Volgende keer beter!")
+    again = input("wil je nog een keer spelen? (j/n)")
+    # als je wil, nog een keer spelen
+    if again == "j":
+      print_mastermind_board(passcode, guess_codes, guess_flags)
+    else:
+      print("THE END")
